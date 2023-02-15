@@ -1,3 +1,4 @@
+using FileWatcher.Model.FileLog;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,16 @@ namespace PuxDesign.Api.Services
 {
     public class FileWatcherService : IFileWatcherService
     {
-        public List<FileLog> FileAnalyze(string path)
+        public LogListResult<FileLog> FileAnalyze(string path)
         {
             path = FormatInputPath(path) +"/"; //pro sjednocení formátu adresy pøidám "/"
             
             DirectoryInfo directory = new DirectoryInfo(path);
-            //TODO složka neexistuje
+
+            if(!directory.Exists ) 
+            {
+                return new LogListResult<FileLog> { Data = null, DirectoryExists= false };
+            }
 
             path = directory.FullName;
 
@@ -164,7 +169,9 @@ namespace PuxDesign.Api.Services
 
             System.IO.File.WriteAllText(jsonLogPath, serializedJsonData);
 
-            return result;
+            return new LogListResult<FileLog> { 
+                Data = result.GroupBy(x => x.ComputedHash).Select(g => g.First()).ToList(), 
+                DirectoryExists = true }; 
         }
 
         private string ComputeHashFile(string path)

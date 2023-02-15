@@ -1,3 +1,4 @@
+using FileWatcher.Model.FileLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,6 @@ namespace PuxDesign.Api.Services
 {
     public interface IFileWatcherService
     {
-        List<FileLog> FileAnalyze(string path);
+        LogListResult<FileLog> FileAnalyze(string path);
     }
 }

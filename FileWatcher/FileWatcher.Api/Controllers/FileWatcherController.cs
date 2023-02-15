@@ -1,3 +1,4 @@
+using FileWatcher.Model.FileLog;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PuxDesign.Api.Services;
@@ -17,7 +18,7 @@ namespace PuxDesign.Api.Controllers
 
         [HttpGet]
         [Route("v1/file-watcher")]
-        public ActionResult<List<FileLog>> GetFileLogs(string path)
+        public ActionResult<LogListResult<FileLog>> GetFileLogs(string path)
         {
             var result = fileWatcher.FileAnalyze(path);
 
