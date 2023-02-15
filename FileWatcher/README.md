@@ -1,2 +1,2 @@
 # PuxDesign.FileWatcher
-Vzorový program pro společnost PuxDesign
+Vzorový program pro PuxDesign
