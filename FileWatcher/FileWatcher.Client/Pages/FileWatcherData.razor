@@ -73,16 +73,9 @@ else
     private List<FileLogDto>? FilesLogs;
     private string Path = "";
     private bool IsLoading = false;
-    private bool ShowContent = false;
 
     private async Task CallFileLogApi(string path)
     {
-        //path = "das";
-        //path = @"C:\Users\Kucer\Desktop\MigraceJUST";
-        //path = @"C:\Users\Kucer\Desktop\smlouvy";
-        //path = "~/sample-data";
-        //FilesNewOrChanged = true; //předpokládám že soubory se změnily nebo se analyzuje nový adresář
-
         IsLoading = true;
         var httpClient = new HttpClient();
         var response = await httpClient.GetAsync($"https://localhost:7155/v1/file-watcher?path={path}");
@@ -92,14 +85,8 @@ else
 
         FilesNewOrChanged = deserializedJson.All(x => x.Status == FileStatus.Original); //soubory se nezměnily
         FilesLogs = deserializedJson.Where(x => x.Status != FileStatus.Original).ToList();
-        ShowContent = true;
 
         IsLoading = false;
-    }
-
-    private void RefresState()
-    {
-        ShowContent = false;
     }
 
     public class FileLogDto
