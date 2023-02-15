@@ -1,7 +1,10 @@
-﻿public enum FileStatus
+﻿namespace FileWatcher.Model.FileLog
 {
-    Added,
-    Modified,
-    Deleted,
-    Original
+    public enum FileStatus
+    {
+        Added,
+        Modified,
+        Deleted,
+        Original
+    }
 }
