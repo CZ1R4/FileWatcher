@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileWatcher.Api", "FileWatcher.Api\FileWatcher.Api.csproj", "{F259BC20-F1FF-4B8C-8306-C2C21CCD9631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileWatcher.Client", "FileWatcher.Client\FileWatcher.Client.csproj", "{D691D4CA-9284-4E28-B503-59F9DD2EED8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileWatcher.Client", "FileWatcher.Client\FileWatcher.Client.csproj", "{D691D4CA-9284-4E28-B503-59F9DD2EED8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileWatcher.Model", "FileWatcher.Model\FileWatcher.Model.csproj", "{6F23C30D-2B3B-4532-B5BF-5C55889C1DCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D691D4CA-9284-4E28-B503-59F9DD2EED8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D691D4CA-9284-4E28-B503-59F9DD2EED8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D691D4CA-9284-4E28-B503-59F9DD2EED8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F23C30D-2B3B-4532-B5BF-5C55889C1DCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F23C30D-2B3B-4532-B5BF-5C55889C1DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F23C30D-2B3B-4532-B5BF-5C55889C1DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F23C30D-2B3B-4532-B5BF-5C55889C1DCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

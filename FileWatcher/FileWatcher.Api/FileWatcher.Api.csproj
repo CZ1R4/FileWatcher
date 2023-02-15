@@ -14,8 +14,11 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Model\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FileWatcher.Model\FileWatcher.Model.csproj" />
   </ItemGroup>
 
 </Project>

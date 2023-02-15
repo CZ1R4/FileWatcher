@@ -41,7 +41,7 @@
                 @foreach (var log in FilesLogs)
                 {
                     <tr>
-                        <td>@log.FileAddress</td>
+                        <td>@log.FileName</td>
                         <td>@log.FileVersion</td>
                         <td>@log.Status</td>
                     </tr>
@@ -70,7 +70,7 @@ else
 
 @code {
     private bool FilesNewOrChanged;
-    private List<FileLogDto>? FilesLogs;
+    private List<FileLog>? FilesLogs;
     private string Path = "";
     private bool IsLoading = false;
 
@@ -81,7 +81,7 @@ else
         var response = await httpClient.GetAsync($"https://localhost:7155/v1/file-watcher?path={path}");
 
         var output = await response.Content.ReadAsStringAsync();
-        var deserializedJson = JsonConvert.DeserializeObject<List<FileLogDto>>(output);
+        var deserializedJson = JsonConvert.DeserializeObject<List<FileLog>>(output);
 
         FilesNewOrChanged = deserializedJson.All(x => x.Status == FileStatus.Original); //soubory se nezměnily
         FilesLogs = deserializedJson.Where(x => x.Status != FileStatus.Original).ToList();
@@ -89,21 +89,22 @@ else
         IsLoading = false;
     }
 
-    public class FileLogDto
-    {
-        public string RootDirectoryAddress { get; set; }
-        public string FileAddress { get; set; }
-        public int? FileVersion { get; set; }
-        public FileStatus Status { get; set; }
-        public DateTime LastWriteTime { get; set; }
-        public string ComputedHash { get; set; }
-    }
+    //public class FileLogDto
+    //{
+    //    public string RootDirectoryAddress { get; set; }
+    //    public string FileName { get; set; }
+    //    public string FileAddress { get; set; }
+    //    public int? FileVersion { get; set; }
+    //    public FileStatus Status { get; set; }
+    //    public DateTime LastWriteTime { get; set; }
+    //    public string ComputedHash { get; set; }
+    //}
 
-    public enum FileStatus
-    {
-        Added,
-        Modified,
-        Deleted,
-        Original
-    }
+    //public enum FileStatus
+    //{
+    //    Added,
+    //    Modified,
+    //    Deleted,
+    //    Original
+    //}
 }

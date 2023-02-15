@@ -1,4 +1,4 @@
-public enum FileStatus
+﻿public enum FileStatus
 {
     Added,
     Modified,
