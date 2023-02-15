@@ -12,8 +12,13 @@ namespace PuxDesign.Api.Services
     {
         public List<FileLog> FileAnalyze(string path)
         {
-            //path = @"C:\Users\Kucer\Desktop\MigraceJUST"; //zparametrizovat
+            path = FormatInputPath(path) +"/"; //pro sjednocení formátu adresy pøidám "/"
+            
             DirectoryInfo directory = new DirectoryInfo(path);
+            //TODO složka neexistuje
+
+            path = directory.FullName;
+
             var currentPath = Directory.GetCurrentDirectory();
             var jsonLogPath = Path.Combine(currentPath, "file_logs.json");
 
@@ -34,6 +39,7 @@ namespace PuxDesign.Api.Services
                 var fileLog = new FileLog()
                 {
                     RootDirectoryAddress = path,
+                    FileName = file.FullName.Replace(path, ""),
                     FileAddress = file.FullName,
                     LastWriteTime = file.LastWriteTime,
                     FileVersion = 1,
@@ -72,6 +78,7 @@ namespace PuxDesign.Api.Services
                     result.Add(new FileLog
                     {
                         RootDirectoryAddress = path,
+                        FileName = newFile.FileName,
                         FileAddress = newFile.FileAddress,
                         FileVersion = newFile.FileVersion,
                         LastWriteTime = newFile.LastWriteTime,
@@ -90,6 +97,7 @@ namespace PuxDesign.Api.Services
                     result.Add(new FileLog
                     {
                         RootDirectoryAddress = path,
+                        FileName = modifiedFile.FileName,
                         FileAddress = modifiedFile.FileAddress,
                         FileVersion = modifiedFile.FileVersion + 1,
                         LastWriteTime = modifiedFile.LastWriteTime,
@@ -104,6 +112,7 @@ namespace PuxDesign.Api.Services
                 result.Add(new FileLog
                 {
                     RootDirectoryAddress = path,
+                    FileName = log.FileName,
                     FileAddress = log.FileAddress,
                     FileVersion = log.FileVersion,
                     LastWriteTime = log.LastWriteTime,
@@ -121,6 +130,7 @@ namespace PuxDesign.Api.Services
                 result.Add(new FileLog
                 {
                     RootDirectoryAddress = path,
+                    FileName = log.FileName,
                     FileAddress = log.FileAddress,
                     FileVersion = log.FileVersion,
                     LastWriteTime = log.LastWriteTime,
@@ -173,6 +183,14 @@ namespace PuxDesign.Api.Services
             }
 
             return hashString;
+        }
+
+        private string FormatInputPath(string path)
+        {
+            var currentPath = Directory.GetCurrentDirectory();
+            var formatedPath = path.Replace("~",currentPath);
+
+            return formatedPath;
         }
     }
 }
