@@ -1,8 +1,6 @@
 using FileWatcher.Model.FileLog;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using PuxDesign.Api.Services;
-using System.Security.Cryptography;
 
 namespace PuxDesign.Api.Controllers
 {
