@@ -1,0 +1,78 @@
+﻿@page "/file-watcher"
+@using Newtonsoft.Json
+
+<h3>File-Watcher</h3>
+
+<div class="row justify-content-center">
+    <div class="col-sm-6">
+        <div class="input-group">
+            <input type="text" class="form-control text-center" placeholder="Cesta k analyzovanému adresáři" aria-label="Cesta" aria-describedby="basic-addon2" @bind-value="@path">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" @onclick="() => CallFileLogApi(path)">Analyzovat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (FilesLogs?.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>File</th>
+                <th>Version</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var log in FilesLogs)
+            {
+                <tr>
+                    <td>@log.FileAddress</td>
+                    <td>@log.FileVersion</td>
+                    <td>@log.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+
+    private List<FileLogDto>? FilesLogs;
+    private string path = "";
+
+    private async Task CallFileLogApi(string path)
+    {
+        //path = "das";
+        //path = @"C:\Users\Kucer\Desktop\MigraceJUST";
+        //path = @"C:\Users\Kucer\Desktop\smlouvy";
+        //path = "~/sample-data";
+        var httpClient = new HttpClient();
+        var response = await httpClient.GetAsync($"https://localhost:7155/v1/file-watcher?path={path}");
+
+        var output = await response.Content.ReadAsStringAsync();
+        var deserializedJson = JsonConvert.DeserializeObject<List<FileLogDto>>(output);
+
+        FilesLogs = deserializedJson.Where(x => x.Status != FileStatus.Original).ToList();
+    }
+
+    public class FileLogDto
+    {
+        public string RootDirectoryAddress { get; set; }
+        public string FileAddress { get; set; }
+        public int? FileVersion { get; set; }
+        public FileStatus Status { get; set; }
+        public DateTime LastWriteTime { get; set; }
+        public string ComputedHash { get; set; }
+    }
+
+    public enum FileStatus
+    {
+        Added,
+        Modified,
+        Deleted,
+        Original
+    }
+}
