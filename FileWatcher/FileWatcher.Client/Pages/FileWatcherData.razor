@@ -52,8 +52,17 @@
     @if (FilesNewOrChanged)
     {
         <div class="row justify-content-center">
-            <div class="m-5"style="text-align: center;">
+            <div class="m-5" style="text-align: center;">
                 <span>Nový adresář nebo žádné změny</span>
+            </div>
+        </div>
+    }
+
+    @if (!DirectoryExists)
+    {
+        <div class="row justify-content-center">
+            <div class="m-5 text-danger" style="text-align: center;">
+                <span>Zadaný adresář neexistuje !</span>
             </div>
         </div>
     }
@@ -73,6 +82,7 @@ else
     private List<FileLog>? FilesLogs;
     private string Path = "";
     private bool IsLoading = false;
+    private bool DirectoryExists = true;
 
     private async Task CallFileLogApi(string path)
     {
@@ -81,30 +91,15 @@ else
         var response = await httpClient.GetAsync($"https://localhost:7155/v1/file-watcher?path={path}");
 
         var output = await response.Content.ReadAsStringAsync();
-        var deserializedJson = JsonConvert.DeserializeObject<List<FileLog>>(output);
+        var deserializedJson = JsonConvert.DeserializeObject<LogListResult<FileLog>>(output);
 
-        FilesNewOrChanged = deserializedJson.All(x => x.Status == FileStatus.Original); //soubory se nezměnily
-        FilesLogs = deserializedJson.Where(x => x.Status != FileStatus.Original).ToList();
-
+        if(deserializedJson.Data != null)
+        {            
+            FilesNewOrChanged = deserializedJson.Data.All(x => x.Status == FileStatus.Original); //soubory se nezměnily        
+            FilesLogs = deserializedJson.Data.Where(x => x.Status != FileStatus.Original).ToList();
+        }
+        
+        DirectoryExists = deserializedJson.DirectoryExists;
         IsLoading = false;
     }
-
-    //public class FileLogDto
-    //{
-    //    public string RootDirectoryAddress { get; set; }
-    //    public string FileName { get; set; }
-    //    public string FileAddress { get; set; }
-    //    public int? FileVersion { get; set; }
-    //    public FileStatus Status { get; set; }
-    //    public DateTime LastWriteTime { get; set; }
-    //    public string ComputedHash { get; set; }
-    //}
-
-    //public enum FileStatus
-    //{
-    //    Added,
-    //    Modified,
-    //    Deleted,
-    //    Original
-    //}
 }
