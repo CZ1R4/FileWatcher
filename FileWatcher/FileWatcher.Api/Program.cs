@@ -1,3 +1,5 @@
+using PuxDesign.Api.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +9,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IFileWatcherService, FileWatcherService>();
+
+//Add CORS
+builder.Services.AddCors(p =>
+    p.AddPolicy("enableAll", policy => { policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader(); }));
+
 var app = builder.Build();
+
+app.UseCors("enableAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
