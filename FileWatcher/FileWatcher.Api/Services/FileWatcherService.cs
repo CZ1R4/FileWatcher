@@ -179,7 +179,7 @@ namespace PuxDesign.Api.Services
                 {
                     var hash = sha256.ComputeHash(stream);
 
-                    // Pøevede hash hodnotu na øetìzec a uloží do objektu
+                    // Pøevede hash hodnotu na øetìzec
                     hashString = BitConverter.ToString(hash);
                 }
             }
