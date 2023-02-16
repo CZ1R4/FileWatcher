@@ -151,7 +151,7 @@ namespace PuxDesign.Api.Services
                 deserializedJsonData.Add(log);
             }
 
-            //inicializace historie adresare pokud neexistuje
+            //inicializace historie adresáøe pokud neexistuje
             if (!historyDirectoryData.Any())
             {
                 foreach (var log in currentDirectoryData)
