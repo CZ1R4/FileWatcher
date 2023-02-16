@@ -1,4 +1,4 @@
-# PuxDesign.FileWatcher
+# FileWatcher
 Vzorový program pro PuxDesign
 
 # Popis 
