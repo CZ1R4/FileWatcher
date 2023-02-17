@@ -6,7 +6,7 @@ Program po zadání uživatelem cesty k adresáři analyzuje obsah adresáře a 
 
 JSON jsem použil abych si každý soubor v adresáři jednoduše serializoval do vlastního listu objektu a z něho porovnám jestli soubor je změněn, odstraněn a nebo přidán. Na konci analýzy se smaže pro daný adresář celá jeho historie a znovu se naplní JSON s aktualním stavem souborů.
 
-Po spuštění je možné buď využit UI od swaggeru a nebo využít jednoduché UI napsané v Blazoru, kde výsledek je zobrazen v tabulce.
+Po spuštění je možné buď využit UI od swaggeru a nebo jednoduché UI napsané v Blazoru, kde výsledek je navíc zobrazen v tabulce.
 
 
 
