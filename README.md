@@ -1,5 +1,5 @@
 # FileWatcher
-Vzorový program pro PuxDesign (REST API , Blazor)
+Jednoduchá webová aplikace trackující lokalní změny v adresáři.
 
 # Popis 
 Program po zadání uživatelem cesty k adresáři analyzuje obsah adresáře a vytvoří JSON soubor (pokud neexistuje), který bude zapisovat změny adresáře. Když je adresář analyzován po první tak zapíše jeho obsah do JSONu aby při dalším spuštění mohl porovnávat změny. 
